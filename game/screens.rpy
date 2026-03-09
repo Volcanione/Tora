@@ -5,6 +5,12 @@ screen game_menu(title, scroll=None, yinitial=0.0):
     
     if main_menu:
         add gui.main_menu_background
+        # 在主界面显示 Live2D 角色
+        # 使用带动画定义的图像名，并显式指定动作
+        add "fred idle":
+            xalign 1.0
+            yalign 1.0
+            zoom 1.0
     else:
         add gui.game_menu_background
 

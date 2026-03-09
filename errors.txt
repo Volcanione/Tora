@@ -2,15 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/tl/chinese/common.rpy", line 75: Could not parse string.
-(Perhaps you left out a " at the end of the first line.)
-    old "Loading will lose unsaved progress.
-    Are you sure you want to do this?"
+File "game/screens.rpy", line 10: 'show' is not a keyword argument or valid child of the screen statement.
+    show "fred_main":
+        ^
 
-File "game/tl/english/common.rpy", line 39: Could not parse string.
-(Perhaps you left out a " at the end of the first line.)
-    old "Loading will lose unsaved progress.
-    Are you sure you want to do this?"
-
-Ren'Py Version: Ren'Py 8.3.4.24120703
-Mon Mar  9 16:51:25 2026
+Ren'Py Version: Ren'Py 8.5.2.26010301
+Mon Mar  9 18:08:34 2026

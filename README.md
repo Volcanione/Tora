@@ -1,108 +1,70 @@
-# Ren'Py 游戏 Demo 项目文档
+# Ren'Py 游戏 Demo (Tora)
 
-这是一个基于 Ren'Py 引擎的基础游戏 Demo，旨在展示 Ren'Py 的核心功能（对话、分支、配置和 GUI）。
-
-## 🚀 快速开始
-
-### 1. 环境准备
-本项目已为您在 `d:/学习/python/renpy_sdk` 目录下安装了 Ren'Py 8.3.4 SDK。
-
-### 2. 导入项目到 Launcher
-如果您想在 Ren'Py Launcher 中看到本项目，请尝试以下任一方法：
-- **方法 A (推荐)**: 点击 Launcher 的 **"Preferences" (设置)** -> **"Projects Directory" (项目目录)** -> 选择本项目的父目录 `d:/学习/python/`。
-- **方法 B (最快)**: 直接将本项目的 `renpy` 文件夹拖入 Ren'Py Launcher 窗口。
-
-### 3. 运行游戏
-在终端中执行以下命令即可启动游戏：
-```powershell
-pwsh.exe -Command "& 'd:/学习/python/renpy_sdk/renpy-8.3.4-sdk/renpy.exe' 'd:/学习/python/renpy'"
-```
-
-### 3. 在 Launcher 中显示项目
-如果 Ren'Py Launcher 列表中没有显示本项目：
-1. 打开 Ren'Py Launcher，点击 **"Preferences" (设置)**。
-2. 点击 **"Projects Directory" (项目目录)**。
-3. 选择本项目的**父目录**：`d:/学习/python/`。
-4. 返回主界面，即可看到名为 `renpy` 的项目。
+这是一个基于 Ren'Py 8.3.4 开发的模块化、多语言视觉小说 Demo。
 
 ## 📂 目录结构说明
 
 ```text
-renpy/
-├── game/                   # 游戏核心资源与脚本目录
-│   ├── audio/              # 音频文件 (mp3, ogg, wav)
-│   ├── fonts/              # 字体文件 (ttf, otf)
-│   ├── gui/                # 界面 UI 图片资源 (按钮、对话框背景等)
-│   ├── images/             # 游戏素材 (背景图 bg, 立绘 side/sprite)
-│   ├── gui.rpy             # 界面样式与布局定义
-│   ├── options.rpy         # 游戏全局配置 (分辨率、版本、存档路径)
-│   ├── script.rpy          # 游戏主入口与全局定义
-│   └── story/              # 剧情脚本目录
-│       ├── chapter1.rpy    # 第一章剧情模块
-│       └── chapter2.rpy    # 第二章剧情模块
-├── README.md               # 项目说明文档
-└── install_renpy.ps1       # SDK 自动化安装脚本
+Tora/
+├── game/                   # 游戏核心资源目录
+│   ├── story/              # [核心] 剧情脚本模块化目录
+│   │   ├── chapter1.rpy    # 第一章剧情
+│   │   └── chapter2.rpy    # 第二章剧情
+│   ├── tl/                 # [核心] 多语言翻译目录
+│   │   └── chinese/        # 中文本地化文件夹 (系统自动扫描)
+│   │       ├── common.rpy  # 界面翻译 (主菜单、设置、存档等)
+│   │       └── story/      # 剧情翻译 (对应 game/story/ 结构)
+│   ├── fonts/              # 字体资源 (解决中文乱码)
+│   ├── gui/                # 界面图片资源 (背景、按钮、对话框)
+│   ├── audio/              # 音频资源 (BGM、SE)
+│   ├── images/             # 角色立绘与背景图
+│   ├── saves/              # [忽略] 本地存档文件夹
+│   ├── script.rpy          # 游戏主入口与初始化逻辑
+│   ├── options.rpy         # 游戏全局配置 (名称、版本、窗口)
+│   ├── gui.rpy             # GUI 样式与配色定义
+│   └── screens.rpy         # 界面 UI 逻辑 (菜单、设置、存档位)
+├── fonts/                  # 全局备用字体
+├── .gitignore              # Git 忽略规则 (忽略 saves, rpyc 等)
+└── README.md               # 项目说明文档
 ```
 
-## 🛠️ 详细配置指南
+## ✨ 核心功能特性
 
-### 1. 剧情编写与模块化
-- **主入口 (`game/script.rpy`)**: 负责全局变量定义（如角色 `define`）和初始跳转 `jump`。
-- **独立章节**: 您可以在 `game/story/` 目录下创建任意数量的 `.rpy` 文件，Ren'Py 会自动递归加载子目录下的脚本。
-- **跳转逻辑**: 使用 `jump label_name` 在不同文件间切换剧情。
-- **基础语法**:
-    - **定义角色**: `define e = Character("艾琳")`
-    - **显示背景**: `scene bg room`
-    - **显示立绘**: `show eileen happy`
-    - **对话分支**: 使用 `menu:` 语句块。
+### 1. 动态多语言系统 (i18n)
+- **自动扫描加载**：系统启动时自动扫描 `game/tl/` 目录，根据文件夹名称动态生成语言切换按钮。
+- **语言持久化**：采用 `init -1 python` 结合 `persistent` 变量，确保玩家选择的语言在重启游戏后依然生效。
+- **本地化补全**：主菜单（Start Game/Load Game）及存档界面已完成全中文本地化。
 
-### 2. 资源命名规范
-Ren'Py 拥有强大的自动识别机制：
-- **背景图**: 命名为 `bg room.jpg`，在脚本中通过 `scene bg room` 调用。
-- **角色立绘**: 命名为 `eileen happy.png`，在脚本中通过 `show eileen happy` 调用。
-- **音频**: 
-    - 背景音乐: `play music "audio/bgm.mp3"`
-    - 音效: `play sound "audio/effect.wav"`
+### 2. 模块化剧情维护
+- **独立脚本**：剧情按章节存放于 `game/story/`，支持通过 `jump` 指令无缝衔接。
+- **结构同步**：翻译文件建议存放在 `game/tl/chinese/story/`，保持与原脚本目录结构一致，方便维护。
 
-### 3. 界面自定义 (`game/gui.rpy`)
-- **分辨率**: 在 `gui.init(1280, 720)` 中修改。
-- **配色方案**: 已更新为现代柔和配色（强调色 `#ff6b6b`，文本色 `#2c3e50`）。
-- **布局优化**: 调整了对话框高度（210px）和文本间距，提升了阅读舒适度。
-- **主界面配置**: 在 `options.rpy` 中设置游戏名称，在 `gui.rpy` 中通过 `gui.navigation_xpos` 调整主菜单按钮位置。
-- **模块化多语言架构**:
-    - 原始脚本 (`game/story/`) 仅包含逻辑 ID。
-    - 翻译文件按语言完全隔离在 `game/tl/chinese/` 和 `game/tl/english/` 目录下。
-    - 剧情翻译存放在各语言目录下的 `story/` 子目录中，实现了真正的文案与逻辑分离。
-- **界面自定义**: 提供了自定义的 `screens.rpy`，允许在设置界面直接切换语言。
-- **字体**: 字体文件存放在 `game/fonts/` 目录，通过 `gui.text_font` 等变量引用。
+### 3. 现代定制化 GUI
+- **视觉风格**：采用软色调配色方案（Accent: `#ff6b6b`），优化了对话框、按钮及导航栏样式。
+- **存档/读档系统**：重构了 `file_slots` 界面，提供 3x2 网格布局，支持实时截图预览、存档时间戳显示及空位提示。
 
-### 4. 游戏设置 (`game/options.rpy`)
-- **存档位置**: 修改 `config.save_directory`。
-- **转场效果**: 修改 `config.enter_transition` (例如使用 `fade`, `dissolve`)。
+### 4. 工程化配置
+- **Git 友好**：内置 `.gitignore`，自动忽略 `saves/` 文件夹、编译后的 `.rpyc` 文件及系统冗余文件。
 
-## ⌨️ 常用快捷键 (开发模式)
+## 🛠️ 开发指南
 
-- `Shift + R`: **快速重载**。修改脚本后保存，按此键可立即在游戏中看到效果。
-- `Shift + D`: **开发者菜单**。包含变量查看器、跳转标签等。
-- `Shift + I`: **样式检查器**。查看 UI 元素的属性。
-- `>` (句号): 快速跳过对话。
-- `Ctrl` (长按): 强制跳过。
-- `F5`: 快速存档。
+### 增加新章节
+1. 在 `game/story/` 下创建新的 `.rpy` 文件（如 `chapter3.rpy`）。
+2. 在 `script.rpy` 中使用 `jump chapter3_start` 进行跳转。
 
-## 🐞 调试命令
+### 扩展新语言
+1. 在 `game/tl/` 下创建语言文件夹（如 `japanese`）。
+2. 在该文件夹内编写翻译脚本（可以使用 Ren'Py SDK 自动生成）。
+3. **无需修改代码**：设置菜单会自动识别并显示“japanese”选项。
 
-在终端中带调试参数启动：
-```powershell
-pwsh.exe -Command "& 'd:/学习/python/renpy_sdk/renpy-8.3.4-sdk/renpy.exe' 'd:/学习/python/renpy' --debug"
-```
+## 🚀 运行环境
+- **Ren'Py SDK**: 8.3.4
+- **Python**: 3.9+ (SDK 内置)
 
-## ⚠️ 常见问题
-
-### 中文乱码/显示方块
-- **原因**: 默认字体不支持中文。
-- **解决**: 在 `game/gui.rpy` 中设置 `gui.text_font = "AaFengKuangYuanShiRen-2.ttf"`（Ren'Py 内置字体）。
-- **编码**: 确保所有 `.rpy` 文件保存为 **UTF-8** 编码。
-
-## 📚 学习资源
-- [Ren'Py 官方中文文档](https://www.renpy.cn/doc/)
-- [Ren'Py 官方论坛 (Lemma Soft)](https://lemmasoft.renai.us/forums/)
+## 📝 最近更新记录
+- **[2026-03-09] 界面与功能完善**：
+  - **UI 增强**：修复了 Preferences 界面配置项消失及文字过大的问题，定义了 `slider_bar` 样式修复进度条不可见。
+  - **存档系统**：重构 `file_slots` 界面，增加 `FileScreenshot` 预览和 `FileTime` 时间戳。
+  - **多语言持久化**：修复了 `persistent.lang` 导致的 `NoneType` 迭代错误及 `NameError`，确保设置跨会话生效。
+  - **本地化补全**：同步更新 `common.rpy`，补全了主菜单、存档界面及占位符的中文翻译。
+  - **工程化**：添加 `.gitignore`，采用树状结构优化了 `README.md` 的目录说明。

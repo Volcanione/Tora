@@ -1,32 +1,28 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
-While parsing D:\学习\python\Tora\game/script.rpy.
-  File "game/script.rpy", line 5, in <module>
-    if persistent.lang is not None:
-NameError: name 'persistent' is not defined
+While running game code:
+  File "game/script.rpy", line 29, in script
+    define config.live2d = True
+  File "renpy/common/000namespaces.rpy", line 34, in set
+    setattr(self.nso, name, value)
+Exception: config.live2d is not a known configuration variable.
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "D:\学习\python\renpy_sdk\renpy-8.3.4-sdk\renpy\bootstrap.py", line 359, in bootstrap
-    renpy.main.main()
-  File "D:\学习\python\renpy_sdk\renpy-8.3.4-sdk\renpy\main.py", line 470, in main
-    renpy.game.script.load_script() # sets renpy.game.script.
-  File "D:\学习\python\renpy_sdk\renpy-8.3.4-sdk\renpy\script.py", line 359, in load_script
-    self.load_appropriate_file(".rpyc", [ "_ren.py", ".rpy" ], dir, fn, initcode)
-  File "D:\学习\python\renpy_sdk\renpy-8.3.4-sdk\renpy\script.py", line 957, in load_appropriate_file
-    self.finish_load(stmts, initcode, filename=lastfn) # type: ignore
-  File "D:\学习\python\renpy_sdk\renpy-8.3.4-sdk\renpy\script.py", line 602, in finish_load
-    node.early_execute()
-  File "D:\学习\python\renpy_sdk\renpy-8.3.4-sdk\renpy\ast.py", line 884, in early_execute
-    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
-  File "D:\学习\python\renpy_sdk\renpy-8.3.4-sdk\renpy\python.py", line 1178, in py_exec_bytecode
-    exec(bytecode, globals, locals)
-  File "game/script.rpy", line 5, in <module>
-    if persistent.lang is not None:
-NameError: name 'persistent' is not defined
+  File "game/script.rpy", line 29, in script
+    define config.live2d = True
+  File "D:\学习\python\renpy_sdk\renpy-8.3.4-sdk\renpy\ast.py", line 2241, in execute
+    self.set()
+  File "D:\学习\python\renpy_sdk\renpy-8.3.4-sdk\renpy\ast.py", line 2259, in set
+    ns.set(self.varname, value)
+  File "renpy/common/000namespaces.rpy", line 34, in set
+    setattr(self.nso, name, value)
+  File "D:\学习\python\renpy_sdk\renpy-8.3.4-sdk\renpy\defaultstore.py", line 101, in __setattr__
+    raise Exception('config.%s is not a known configuration variable.' % (name))
+Exception: config.live2d is not a known configuration variable.
 
 Windows-10-10.0.22621 AMD64
 Ren'Py 8.3.4.24120703
 My Visual Novel 1.0
-Mon Mar  9 16:32:23 2026
+Mon Mar  9 17:50:09 2026
