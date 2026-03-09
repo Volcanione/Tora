@@ -100,16 +100,17 @@ screen preferences():
                     text_bold True
                 hbox:
                     spacing 30
-                    textbutton "English" action [Language(None), SetField(persistent, "lang", None)]:
-                        text_size 22
-                        text_idle_color "#7f8c8d"
-                        text_hover_color "#ff8787"
-                        text_selected_color "#ffffff"
-                    textbutton "中文" action [Language("chinese"), SetField(persistent, "lang", "chinese")]:
-                        text_size 22
-                        text_idle_color "#7f8c8d"
-                        text_hover_color "#ff8787"
-                        text_selected_color "#ffffff"
+                    # 动态生成语言切换按钮
+                    for lang in available_languages:
+                        $ lang_name = lang if lang else "English"
+                        # 如果是中文文件夹名，可以映射显示名称，或者直接显示文件夹名
+                        $ display_name = "中文" if lang == "chinese" else lang_name
+                        
+                        textbutton display_name action [Language(lang), SetField(persistent, "lang", lang)]:
+                            text_size 22
+                            text_idle_color "#7f8c8d"
+                            text_hover_color "#ff8787"
+                            text_selected_color "#ffffff"
             
             # 显示模式
             vbox:

@@ -1,0 +1,19 @@
+# Ren'Py 存档文件夹
+game/saves/
+
+# 自动生成的编译文件
+**/*.rpyc
+**/*.rpymc
+
+# 临时文件和日志
+/tmp/
+/errors.txt
+/traceback.txt
+/log.txt
+
+# 操作系统文件
+.DS_Store
+Thumbs.db
+
+# SDK 生成的构建目录
+/build/
