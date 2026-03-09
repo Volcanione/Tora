@@ -1,0 +1,16 @@
+﻿I'm sorry, but errors were detected in your script. Please correct the
+errors listed below, and try again.
+
+
+File "game/tl/chinese/common.rpy", line 75: Could not parse string.
+(Perhaps you left out a " at the end of the first line.)
+    old "Loading will lose unsaved progress.
+    Are you sure you want to do this?"
+
+File "game/tl/english/common.rpy", line 39: Could not parse string.
+(Perhaps you left out a " at the end of the first line.)
+    old "Loading will lose unsaved progress.
+    Are you sure you want to do this?"
+
+Ren'Py Version: Ren'Py 8.3.4.24120703
+Mon Mar  9 16:51:25 2026
