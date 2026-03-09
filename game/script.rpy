@@ -2,7 +2,11 @@
 
 # 显式定义 Live2D 角色，并配置动作映射
 # 动作名称 'idle' 对应 mtn/idle.motion3.json
-image fred = Live2D("live2d/fred", loop=True, fade=True, default_fade=0.5)
+# update_lookat=True 启用鼠标追踪功能
+image fred = Live2D("live2d/fred", loop=True, fade=True, default_fade=0.5, update_lookat=True)
+
+# 定义 Fred 角色对象，用于对话
+define f = Character("Fred")
 
 # 移除 python early，改用 init -1
 init -1 python:
@@ -22,9 +26,6 @@ init -1 python:
     if persistent.lang is not None:
         # 在初始化阶段设置默认语言
         config.language = persistent.lang
-
-# 定义角色 (使用 ID 作为 Key)
-define e = Character("Eileen")
 
 # 游戏开始
 label start:

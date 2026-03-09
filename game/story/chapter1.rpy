@@ -1,7 +1,7 @@
 # 第一章剧情模块 (基准脚本)
 
 label chapter1_start:
-    e "ch1_intro"
+    f "ch1_intro"
     
     menu:
         "where_to_go"
@@ -10,5 +10,5 @@ label chapter1_start:
             jump chapter2_start
             
         "stay_here":
-            e "ch1_stay"
+            f "ch1_stay"
             jump end_game

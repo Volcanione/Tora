@@ -1,5 +1,6 @@
 # Ren'Py 存档文件夹
-game/saves/
+**/game/saves/
+saves/
 
 # 自动生成的编译文件
 **/*.rpyc

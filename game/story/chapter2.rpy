@@ -2,6 +2,6 @@
 
 label chapter2_start:
     scene bg forest
-    e "ch2_intro"
-    e "ch2_modular_info"
+    f "ch2_intro"
+    f "ch2_modular_info"
     jump end_game
